@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('name', 100);
             $table->string('code');
+            $table->float('_lat', 9, 6)->nullable();
+            $table->float('_lng', 9, 6)->nullable();
             $table->string('tax_code', 13)->nullable();
             $table->foreignId('city_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('district_id')->nullable()->constrained()->cascadeOnDelete();

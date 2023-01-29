@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StorePortalRequest;
 use App\Http\Resources\PortalResource;
 use App\Models\Portal;
 use Illuminate\Http\Request;
@@ -23,7 +24,7 @@ class PortalController extends Controller
     {
         $data = $request->all();
         $perPage = isset($data['per_page']) ? $data['per_page'] : 30;
-        $entries = $this->model->paginate($perPage);
+        $entries = $this->model->latest('id')->paginate($perPage);
         return PortalResource::collection($entries);
     }
 
@@ -34,7 +35,7 @@ class PortalController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePortalRequest $request)
     {
         $data = $this->model->formatData($request->all());
         try {
